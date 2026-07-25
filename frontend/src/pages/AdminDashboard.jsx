@@ -178,10 +178,10 @@ const AdminDashboard = () => {
     // ─── Filters ───
     const filteredRequests = requests.filter(req => {
         const matchesSearch =
-            req.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            req.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            req.contact_number.includes(searchTerm) ||
-            req.project_title.toLowerCase().includes(searchTerm.toLowerCase());
+            (req.full_name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (req.email || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (req.contact_number || '').includes(searchTerm) ||
+            (req.project_title || '').toLowerCase().includes(searchTerm.toLowerCase());
 
         const matchesFilter = filterCategory === 'All' || req.service_category === filterCategory;
 
