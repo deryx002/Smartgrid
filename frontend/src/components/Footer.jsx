@@ -57,25 +57,13 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Sensor Grid. All rights reserved.
           </div>
           <div>
-            {window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' ? (
-              <a
-                href="https://admin.sensongrid.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-cyan-400 text-slate-600 text-xs flex items-center gap-1.5"
-              >
-                <FiLock size={12} />
-                <span>Admin Portal</span>
-              </a>
-            ) : (
-              <Link
-                to="/admin/login"
-                className="transition-colors hover:text-cyan-400 text-slate-600 text-xs flex items-center gap-1.5"
-              >
-                <FiLock size={12} />
-                <span>Admin Portal</span>
-              </Link>
-            )}
+            <Link
+              to="/admin/login"
+              className="transition-colors hover:text-cyan-400 text-slate-600 text-xs flex items-center gap-1.5"
+            >
+              <FiLock size={12} />
+              <span>Admin Portal</span>
+            </Link>
           </div>
         </div>
       </div>
