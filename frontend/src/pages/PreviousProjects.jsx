@@ -21,6 +21,13 @@ const PreviousProjects = () => {
     fetchProjects();
   }, []);
 
+  const handleViewDetails = (e, liveUrl) => {
+    if (!liveUrl || liveUrl.includes('example.com') || liveUrl === '#') {
+      e.preventDefault();
+      alert('Project details posting soon!');
+    }
+  };
+
   const categoryColors = {
     Software: { accent: '#3b82f6', glow: 'rgba(59,130,246,0.3)' },
     IoT: { accent: '#34d399', glow: 'rgba(52,211,153,0.3)' },
@@ -95,8 +102,7 @@ const PreviousProjects = () => {
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">Portfolio Coming Soon</h3>
             <p className="text-slate-400">
-              We are currently curating our best work to display here. 
-              Check back later to see our amazing projects in Software, IoT, and Design.
+              We are currently working to display our best work we have done so far on categories like Software, IoT, and Design.
             </p>
           </motion.div>
         ) : (
@@ -116,22 +122,6 @@ const PreviousProjects = () => {
                     border: '1px solid rgba(0,229,255,0.1)',
                   }}
                 >
-                  <div className="h-48 relative overflow-hidden" style={{ background: 'rgba(0,229,255,0.03)' }}>
-                    {project.image_url ? (
-                      <img
-                        src={project.image_url}
-                        alt={project.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div
-                        className="w-full h-full flex items-center justify-center"
-                        style={{ color: 'rgba(0,229,255,0.25)' }}
-                      >
-                        <FiImage size={40} />
-                      </div>
-                    )}
-                  </div>
                   <div className="p-6">
                     <span
                       className="text-xs font-bold uppercase tracking-wider mb-2 block"
@@ -161,6 +151,7 @@ const PreviousProjects = () => {
                     {project.live_url && (
                       <a
                         href={project.live_url}
+                        onClick={(e) => handleViewDetails(e, project.live_url)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 font-semibold text-sm transition-colors"

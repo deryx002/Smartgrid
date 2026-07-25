@@ -28,7 +28,7 @@ exports.getProjectById = async (req, res) => {
 
 // Create project (admin only)
 exports.createProject = async (req, res) => {
-    const { name, category, description, technologies, image_url, live_url } = req.body;
+    const { name, category, description, technologies, live_url } = req.body;
 
     if (!name || !category || !description || !technologies) {
         return res.status(400).json({ message: 'Name, category, description, and technologies are required.' });
@@ -40,7 +40,6 @@ exports.createProject = async (req, res) => {
             category,
             description,
             technologies: Array.isArray(technologies) ? technologies : [technologies],
-            image_url: image_url || null,
             live_url: live_url || null
         });
 
@@ -57,7 +56,7 @@ exports.createProject = async (req, res) => {
 // Update project (admin only)
 exports.updateProject = async (req, res) => {
     const { id } = req.params;
-    const { name, category, description, technologies, image_url, live_url } = req.body;
+    const { name, category, description, technologies, live_url } = req.body;
 
     if (!name || !category || !description || !technologies) {
         return res.status(400).json({ message: 'Name, category, description, and technologies are required.' });
@@ -71,7 +70,6 @@ exports.updateProject = async (req, res) => {
                 category,
                 description,
                 technologies: Array.isArray(technologies) ? technologies : [technologies],
-                image_url: image_url || null,
                 live_url: live_url || null
             },
             { new: true, runValidators: true }

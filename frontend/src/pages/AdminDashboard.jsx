@@ -447,25 +447,11 @@ const AdminDashboard = () => {
                                         className="rounded-2xl overflow-hidden group transition-all duration-300 hover:scale-[1.02]"
                                         style={{ background: 'linear-gradient(135deg, rgba(15,23,42,0.8), rgba(15,23,42,0.4))', border: '1px solid rgba(0,229,255,0.1)' }}
                                     >
-                                        {/* Image */}
-                                        <div className="h-44 relative overflow-hidden" style={{ background: 'rgba(0,229,255,0.03)' }}>
-                                            {project.image_url ? (
-                                                <img
-                                                    src={project.image_url}
-                                                    alt={project.name}
-                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full flex items-center justify-center" style={{ color: 'rgba(0,229,255,0.25)' }}>
-                                                    <FiFolder size={40} />
-                                                </div>
-                                            )}
-                                            <span className={`absolute top-3 left-3 px-2.5 py-1 rounded-lg text-xs font-semibold ${categoryColors[project.category] || 'bg-slate-700 text-slate-300'}`} style={{ background: 'rgba(3,7,18,0.8)', backdropFilter: 'blur(8px)' }}>
-                                                {project.category}
-                                            </span>
-                                        </div>
                                         {/* Content */}
                                         <div className="p-5">
+                                            <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-semibold mb-3 ${categoryColors[project.category] || 'bg-slate-700 text-slate-300'}`}>
+                                                {project.category}
+                                            </span>
                                             <h3 className="text-lg font-bold text-white mb-2">{project.name}</h3>
                                             <p className="text-slate-400 text-sm mb-3 line-clamp-2">{project.description}</p>
 
@@ -698,16 +684,7 @@ const AdminDashboard = () => {
                                         required
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-300 mb-1.5">Image URL</label>
-                                    <input
-                                        type="url"
-                                        value={projectForm.image_url}
-                                        onChange={(e) => setProjectForm({ ...projectForm, image_url: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-xl border border-cyan-500/15 bg-white/5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all"
-                                        placeholder="https://images.unsplash.com/..."
-                                    />
-                                </div>
+
                                 <div className="flex gap-3 pt-2">
                                     <button
                                         type="button"

@@ -21,10 +21,6 @@ const previousProjectSchema = new mongoose.Schema({
         required: true,
         default: []
     },
-    image_url: {
-        type: String,
-        default: null
-    },
     live_url: {
         type: String,
         default: null
@@ -40,9 +36,8 @@ const previousProjectSchema = new mongoose.Schema({
 });
 
 // Update updated_at automatically before saving
-previousProjectSchema.pre('save', function (next) {
+previousProjectSchema.pre('save', function () {
     this.updated_at = Date.now();
-    next();
 });
 
 module.exports = mongoose.model('PreviousProject', previousProjectSchema);
