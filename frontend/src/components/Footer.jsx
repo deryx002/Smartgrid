@@ -56,6 +56,30 @@ const Footer = () => {
           <div>
             &copy; {new Date().getFullYear()} Sensor Grid. All rights reserved.
           </div>
+          <div className="flex items-center gap-2 text-xs text-slate-500">
+            <span>Developed by <span className="text-slate-400 font-medium">Sadhana</span></span>
+            <div className="flex items-center gap-1.5">
+              <a
+                href="https://www.linkedin.com/in/sadhana-murali-39274a333/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-cyan-400 transition-colors"
+                aria-label="Sadhana LinkedIn"
+              >
+                <FiLinkedin size={12} />
+              </a>
+              <a
+                href="https://github.com/SadhanaMurali09"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-cyan-400 transition-colors"
+                aria-label="Sadhana GitHub"
+              >
+                <FiGithub size={12} />
+              </a>
+            </div>
+            <span>&amp; <span className="text-slate-400 font-medium">Dharun</span></span>
+          </div>
           <div>
             <Link
               to="/admin/login"
