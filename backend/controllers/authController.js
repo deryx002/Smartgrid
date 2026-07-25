@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const db = require('../config/db');
+const AdminUser = require('../models/AdminUser');
 
 // Login admin
 exports.login = async (req, res) => {
@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
     }
 
     try {
-        const admin = db.prepare('SELECT * FROM admin_users WHERE username = ?').get(username);
+        const admin = await AdminUser.findOne({ username });
 
         if (!admin) {
             return res.status(401).json({ message: 'Invalid username or password.' });
@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
         }
 
         const token = jwt.sign(
-            { id: admin.id, username: admin.username },
+            { id: admin._id, username: admin.username },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
         );
@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
             message: 'Login successful',
             token,
             admin: {
-                id: admin.id,
+                id: admin._id,
                 username: admin.username
             }
         });

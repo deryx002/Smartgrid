@@ -35,7 +35,7 @@ const Footer = () => {
             <h4 className="text-white font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/" className="transition-colors hover:text-cyan-400">Home</Link></li>
-              <li><Link to="/#leadership" className="transition-colors hover:text-cyan-400">Leadership</Link></li>
+              <li><Link to={{ pathname: '/', hash: '#leadership' }} className="transition-colors hover:text-cyan-400">Leadership</Link></li>
               <li><Link to="/services" className="transition-colors hover:text-cyan-400">Services</Link></li>
               <li><Link to="/projects" className="transition-colors hover:text-cyan-400">Projects</Link></li>
               <li><Link to="/contact" className="transition-colors hover:text-cyan-400">Contact Us</Link></li>

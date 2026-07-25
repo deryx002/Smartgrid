@@ -27,10 +27,8 @@ const Navbar = () => {
     setIsOpen(false);
     if (link.isLeadership) {
       e.preventDefault();
-      if (location.pathname !== '/') {
-        navigate('/#leadership');
-      } else {
-        window.location.hash = 'leadership';
+      navigate({ pathname: '/', hash: '#leadership' });
+      if (location.pathname === '/') {
         const element = document.getElementById('leadership');
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
@@ -87,7 +85,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <Link
                 key={link.name}
-                to={link.isLeadership ? '/#leadership' : link.path}
+                to={link.isLeadership ? { pathname: '/', hash: '#leadership' } : link.path}
                 onClick={(e) => handleNavClick(link, e)}
                 className={`text-sm font-medium transition-all duration-300 relative ${
                   isActive(link)
@@ -125,7 +123,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <Link
                 key={link.name}
-                to={link.isLeadership ? '/#leadership' : link.path}
+                to={link.isLeadership ? { pathname: '/', hash: '#leadership' } : link.path}
                 onClick={(e) => handleNavClick(link, e)}
                 className={`block px-3 py-3 rounded-xl text-base font-medium transition-all ${
                   isActive(link)

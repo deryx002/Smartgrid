@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const db = require('../config/db');
+const ClientRequest = require('../models/ClientRequest');
 
 // Create a new client request
 exports.createRequest = async (req, res) => {
@@ -19,12 +19,7 @@ exports.createRequest = async (req, res) => {
     } = req.body;
 
     try {
-        const stmt = db.prepare(`
-            INSERT INTO client_requests 
-            (full_name, email, contact_number, service_category, project_type, project_title, project_description) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        `);
-        const result = stmt.run(
+        const newRequest = await ClientRequest.create({
             full_name,
             email,
             contact_number,
@@ -32,11 +27,11 @@ exports.createRequest = async (req, res) => {
             project_type,
             project_title,
             project_description
-        );
+        });
 
         res.status(201).json({
             message: 'Request submitted successfully',
-            id: result.lastInsertRowid
+            id: newRequest._id
         });
     } catch (error) {
         console.error('Error saving request:', error);
@@ -47,8 +42,8 @@ exports.createRequest = async (req, res) => {
 // Get all client requests
 exports.getRequests = async (req, res) => {
     try {
-        const rows = db.prepare('SELECT * FROM client_requests ORDER BY submitted_at DESC').all();
-        res.status(200).json(rows);
+        const requests = await ClientRequest.find().sort({ submitted_at: -1 });
+        res.status(200).json(requests);
     } catch (error) {
         console.error('Error fetching requests:', error);
         res.status(500).json({ message: 'Server error while fetching requests' });
@@ -60,9 +55,9 @@ exports.deleteRequest = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const result = db.prepare('DELETE FROM client_requests WHERE id = ?').run(id);
+        const deletedRequest = await ClientRequest.findByIdAndDelete(id);
 
-        if (result.changes === 0) {
+        if (!deletedRequest) {
             return res.status(404).json({ message: 'Request not found' });
         }
 

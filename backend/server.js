@@ -5,8 +5,12 @@ const morgan = require('morgan');
 const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db');
 
 dotenv.config();
+
+// Connect to MongoDB Atlas
+connectDB();
 
 const app = express();
 

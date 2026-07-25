@@ -105,7 +105,7 @@ const PreviousProjects = () => {
               const colors = categoryColors[project.category] || categoryColors.Software;
               return (
                 <motion.div
-                  key={project.id}
+                  key={project._id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}

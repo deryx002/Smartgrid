@@ -1,15 +1,9 @@
-const db = require('../config/db');
+const PreviousProject = require('../models/PreviousProject');
 
 // Get all projects (public)
 exports.getProjects = async (req, res) => {
     try {
-        const rows = db.prepare('SELECT * FROM previous_projects ORDER BY created_at DESC').all();
-        const projects = rows.map(row => ({
-            ...row,
-            technologies: typeof row.technologies === 'string'
-                ? JSON.parse(row.technologies)
-                : row.technologies
-        }));
+        const projects = await PreviousProject.find().sort({ created_at: -1 });
         res.status(200).json(projects);
     } catch (error) {
         console.error('Error fetching projects:', error);
@@ -21,16 +15,10 @@ exports.getProjects = async (req, res) => {
 exports.getProjectById = async (req, res) => {
     const { id } = req.params;
     try {
-        const row = db.prepare('SELECT * FROM previous_projects WHERE id = ?').get(id);
-        if (!row) {
+        const project = await PreviousProject.findById(id);
+        if (!project) {
             return res.status(404).json({ message: 'Project not found.' });
         }
-        const project = {
-            ...row,
-            technologies: typeof row.technologies === 'string'
-                ? JSON.parse(row.technologies)
-                : row.technologies
-        };
         res.status(200).json(project);
     } catch (error) {
         console.error('Error fetching project:', error);
@@ -47,15 +35,18 @@ exports.createProject = async (req, res) => {
     }
 
     try {
-        const techJson = JSON.stringify(technologies);
-        const result = db.prepare(
-            `INSERT INTO previous_projects (name, category, description, technologies, image_url, live_url)
-             VALUES (?, ?, ?, ?, ?, ?)`
-        ).run(name, category, description, techJson, image_url || null, live_url || null);
+        const newProject = await PreviousProject.create({
+            name,
+            category,
+            description,
+            technologies: Array.isArray(technologies) ? technologies : [technologies],
+            image_url: image_url || null,
+            live_url: live_url || null
+        });
 
         res.status(201).json({
             message: 'Project created successfully',
-            id: result.lastInsertRowid
+            id: newProject._id
         });
     } catch (error) {
         console.error('Error creating project:', error);
@@ -73,18 +64,24 @@ exports.updateProject = async (req, res) => {
     }
 
     try {
-        const techJson = JSON.stringify(technologies);
-        const result = db.prepare(
-            `UPDATE previous_projects
-             SET name = ?, category = ?, description = ?, technologies = ?, image_url = ?, live_url = ?, updated_at = CURRENT_TIMESTAMP
-             WHERE id = ?`
-        ).run(name, category, description, techJson, image_url || null, live_url || null, id);
+        const updatedProject = await PreviousProject.findByIdAndUpdate(
+            id,
+            {
+                name,
+                category,
+                description,
+                technologies: Array.isArray(technologies) ? technologies : [technologies],
+                image_url: image_url || null,
+                live_url: live_url || null
+            },
+            { new: true, runValidators: true }
+        );
 
-        if (result.changes === 0) {
+        if (!updatedProject) {
             return res.status(404).json({ message: 'Project not found.' });
         }
 
-        res.status(200).json({ message: 'Project updated successfully' });
+        res.status(200).json({ message: 'Project updated successfully', project: updatedProject });
     } catch (error) {
         console.error('Error updating project:', error);
         res.status(500).json({ message: 'Server error while updating project.' });
@@ -96,9 +93,9 @@ exports.deleteProject = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const result = db.prepare('DELETE FROM previous_projects WHERE id = ?').run(id);
+        const deletedProject = await PreviousProject.findByIdAndDelete(id);
 
-        if (result.changes === 0) {
+        if (!deletedProject) {
             return res.status(404).json({ message: 'Project not found.' });
         }
 

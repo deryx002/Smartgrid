@@ -71,8 +71,8 @@ const AdminDashboard = () => {
         if (window.confirm('Are you sure you want to delete this request?')) {
             try {
                 await api.delete(`/requests/${id}`);
-                setRequests(requests.filter(req => req.id !== id));
-                if (selectedRequest?.id === id) setSelectedRequest(null);
+                setRequests(requests.filter(req => req._id !== id));
+                if (selectedRequest?._id === id) setSelectedRequest(null);
             } catch (error) {
                 console.error('Error deleting request:', error);
                 alert('Failed to delete request.');
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
 
         try {
             if (editingProject) {
-                await api.put(`/projects/${editingProject.id}`, payload);
+                await api.put(`/projects/${editingProject._id}`, payload);
             } else {
                 await api.post('/projects', payload);
             }
@@ -161,7 +161,7 @@ const AdminDashboard = () => {
         if (window.confirm('Are you sure you want to delete this project?')) {
             try {
                 await api.delete(`/projects/${id}`);
-                setProjects(projects.filter(p => p.id !== id));
+                setProjects(projects.filter(p => p._id !== id));
             } catch (error) {
                 console.error('Error deleting project:', error);
                 alert('Failed to delete project.');
@@ -342,7 +342,7 @@ const AdminDashboard = () => {
                                         ) : (
                                             filteredRequests.map((req) => (
                                                 <motion.tr
-                                                    key={req.id}
+                                                    key={req._id}
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
                                                     className="hover:bg-white/5 transition-colors"
@@ -378,7 +378,7 @@ const AdminDashboard = () => {
                                                                 <FiEye size={16} />
                                                             </button>
                                                             <button
-                                                                onClick={() => handleDeleteRequest(req.id)}
+                                                                onClick={() => handleDeleteRequest(req._id)}
                                                                 className="p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
                                                                 title="Delete Request"
                                                             >
@@ -441,7 +441,7 @@ const AdminDashboard = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {projects.map((project) => (
                                     <motion.div
-                                        key={project.id}
+                                        key={project._id}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         className="rounded-2xl overflow-hidden group transition-all duration-300 hover:scale-[1.02]"
@@ -495,7 +495,7 @@ const AdminDashboard = () => {
                                                     <FiEdit2 size={14} /> Edit
                                                 </button>
                                                 <button
-                                                    onClick={() => handleDeleteProject(project.id)}
+                                                    onClick={() => handleDeleteProject(project._id)}
                                                     className="flex items-center gap-1.5 px-3 py-1.5 text-red-400 hover:bg-red-500/10 rounded-lg text-sm font-medium transition-colors"
                                                 >
                                                     <FiTrash2 size={14} /> Delete
@@ -598,7 +598,7 @@ const AdminDashboard = () => {
                                 </button>
                                 <button
                                     onClick={() => {
-                                        handleDeleteRequest(selectedRequest.id);
+                                        handleDeleteRequest(selectedRequest._id);
                                     }}
                                     className="px-5 py-2.5 rounded-xl bg-red-500/20 text-red-400 font-medium hover:bg-red-500/30 transition-colors flex items-center gap-2" style={{ border: '1px solid rgba(239,68,68,0.3)' }}
                                 >
