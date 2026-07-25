@@ -167,9 +167,9 @@ const Contact = () => {
             className="space-y-6 lg:col-span-1"
           >
             {[
-              { icon: <FiMail size={22} />, label: 'Email', value: 'info@sensorgrid.com' },
-              { icon: <FiPhone size={22} />, label: 'Phone', value: '+1 (555) 123-4567' },
-              { icon: <FiMapPin size={22} />, label: 'Address', value: '123 Tech Avenue, Silicon Valley, CA 94025' },
+              { icon: <FiMail size={22} />, label: 'Email', value: 'sensorgrid123@gmail.com' },
+              { icon: <FiPhone size={22} />, label: 'Phone', value: '+91 - 8668079413' },
+              { icon: <FiMapPin size={22} />, label: 'Address', value: 'Gobi , TamilNadu , India' },
             ].map((item, i) => (
               <div
                 key={i}
