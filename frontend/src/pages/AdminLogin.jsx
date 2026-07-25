@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FiLock, FiUser, FiAlertCircle } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import ADMIN_ROUTES from '../utils/routes';
+import logoImg from '../assets/logos/logo.png';
 
 const AdminLogin = () => {
     const [username, setUsername] = useState('');
@@ -83,12 +84,11 @@ const AdminLogin = () => {
                 >
                     {/* Logo & Header */}
                     <div className="text-center mb-8">
-                        <div
-                            className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4"
-                            style={{ boxShadow: '0 0 30px rgba(0,229,255,0.3)' }}
-                        >
-                            SG
-                        </div>
+                        <img
+                            src={logoImg}
+                            alt="Sensor Grid Logo"
+                            className="w-16 h-16 object-contain mx-auto mb-4"
+                        />
                         <h1 className="text-2xl font-bold text-white mb-1">Admin Access</h1>
                         <p className="text-slate-400 text-sm">Sign in to manage Sensor Grid</p>
                     </div>

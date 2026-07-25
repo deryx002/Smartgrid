@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiTwitter, FiLinkedin, FiGithub, FiMail, FiLock } from 'react-icons/fi';
+import logoImg from '../assets/logos/logo.png';
 
 const Footer = () => {
   return (
@@ -12,12 +13,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div
-                className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm"
-                style={{ boxShadow: '0 0 15px rgba(0,229,255,0.3)' }}
-              >
-                SG
-              </div>
+              <img
+                src={logoImg}
+                alt="Sensor Grid Logo"
+                className="w-8 h-8 object-contain"
+              />
               <span className="font-bold text-xl text-white">Sensor Grid</span>
             </div>
             <p className="text-sm text-slate-400 mb-6 max-w-md">
@@ -45,9 +45,9 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-2 text-sm text-slate-400">
-              <li className="flex items-center gap-2"><FiMail /> info@sensorgrid.com</li>
-              <li>123 Tech Avenue, Silicon Valley, CA 94025</li>
-              <li>+1 (555) 123-4567</li>
+              <li className="flex items-center gap-2"><FiMail /> sensorgrid123@gmail.com</li>
+              <li>Gobi , TamilNadu , India</li>
+              <li>+91 - 8668079413</li>
             </ul>
           </div>
         </div>

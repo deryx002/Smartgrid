@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
+import logoImg from '../assets/logos/logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,12 +69,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center gap-3 group">
-              <div
-                className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-xl transition-all duration-300 group-hover:scale-110"
-                style={{ boxShadow: '0 0 20px rgba(0,229,255,0.3)' }}
-              >
-                SG
-              </div>
+              <img
+                src={logoImg}
+                alt="Sensor Grid Logo"
+                className="w-10 h-10 object-contain transition-all duration-300 group-hover:scale-110"
+              />
               <span className="font-bold text-2xl tracking-tight text-white">
                 Sensor Grid
               </span>
