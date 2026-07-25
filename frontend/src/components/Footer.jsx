@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiTwitter, FiLinkedin, FiGithub, FiMail } from 'react-icons/fi';
+import { FiTwitter, FiLinkedin, FiGithub, FiMail, FiLock } from 'react-icons/fi';
 
 const Footer = () => {
   return (
@@ -52,8 +52,31 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-cyan-500/10 mt-12 pt-8 text-sm text-center text-slate-500">
-          &copy; {new Date().getFullYear()} Sensor Grid. All rights reserved.
+        <div className="border-t border-cyan-500/10 mt-12 pt-8 text-sm flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-500">
+          <div>
+            &copy; {new Date().getFullYear()} Sensor Grid. All rights reserved.
+          </div>
+          <div>
+            {window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' ? (
+              <a
+                href="https://admin.sensongrid.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-cyan-400 text-slate-600 text-xs flex items-center gap-1.5"
+              >
+                <FiLock size={12} />
+                <span>Admin Portal</span>
+              </a>
+            ) : (
+              <Link
+                to="/admin/login"
+                className="transition-colors hover:text-cyan-400 text-slate-600 text-xs flex items-center gap-1.5"
+              >
+                <FiLock size={12} />
+                <span>Admin Portal</span>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </footer>
